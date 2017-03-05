@@ -1,0 +1,215 @@
+/*
+  @import：在当前的LESS文件中导入其他的LESS文件中的代码，这样在本样式中就可以拥有其它文件中的样式了
+
+    @import "xxx.less"; //->.less后缀名可以省略  这样导入的话,以后在编译的时候,会把其它LESS文件中的代码也进行编译,最后都合并在当前编译后的CSS文件中了
+
+    @import (reference) "xxx"; //->也是把其它的LESS导入进来,供我们当前LESS使用，但是增加了 reference 代表“只是引用，不进行编译”，我们一般在这样的LESS中写入的都不是具体的业务样式，而是公共的变量和方法，这些变量方法仅仅是供我们调取使用的，不需要编译即可
+*/
+@import "reset";
+@import "swiper";
+@import (reference) "public";
+
+html {
+  font-size: 100px; /*1REM=100PX 640PX*/
+}
+
+html, body {
+  .fullPage;
+  position: relative;
+  z-index: -4;
+  background: #F4F4F4;
+}
+
+.mainBox {
+  /*当设备的宽度大于设计稿的时候,我们让展示内容的部分最大宽度和设计稿一致,整体在页面水平居中的位置,两边留白即可 =>淘宝、京东都是这样处理的*/
+  .fullPage;
+  position: relative;
+  z-index: -3;
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+/*--LOADING--*/
+.loading {
+  .fullPage;
+  .transitionFn(@duration: .5s);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 1;
+
+  .header {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -2.2rem; /*-.7 - 1.5*/
+    width: 100%;
+    height: 1.4rem;
+
+    h1, h2 {
+      color: @c-white;
+      text-align: center;
+      letter-spacing: .04rem;
+    }
+
+    h1 {
+      font-size: .5rem;
+      line-height: .75rem;
+    }
+
+    h2 {
+      margin-top: .2rem;
+      font-size: .26rem;
+      line-height: .45rem;
+    }
+  }
+
+  .progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: .85rem 0 0 -2.3rem; /*-.15+1=.85*/
+    width: 4.6rem;
+    height: .3rem;
+    background: @c-white;
+    border-radius: .06rem;
+
+    span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: .06rem;
+
+      /*在移动端使用CSS3属性,需要些两套,一套加前缀,一套不加,而且必须是加前缀的在前,不加的在后 =>规定*/
+      background: -webkit-linear-gradient(45deg, #5CB85C 0%, #5CB85C 25%, #74C274 25%, #74C274 50%, #5CB85C 50%, #5CB85C 75%, #74C274 75%, #74C274 100%);
+      background: linear-gradient(45deg, #5CB85C 0%, #5CB85C 25%, #74C274 25%, #74C274 50%, #5CB85C 50%, #5CB85C 75%, #74C274 75%, #74C274 100%);
+      background-size: .3rem .3rem; /*每一个小正方格是一组,整个进度条是由很多组组成的*/
+
+      /*设置CSS3的帧动画,让进度条的斑马线一直在运动*/
+      -webkit-animation: loadingMove 1s linear infinite both;
+      animation: loadingMove 1s linear infinite both;
+
+      /*设置TRANSITION动画,当进度条的宽度发生改变的时候,让其有一个过渡的动画效果,这样好看一些*/
+      .transitionFn;
+    }
+  }
+}
+
+@-webkit-keyframes loadingMove {
+  0% {
+    background-position: 0 .3rem;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes loadingMove {
+  0% {
+    background-position: 0 .3rem;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/*--PHONE--*/
+.phone {
+  .fullPage;
+  display: none;
+  position: relative;
+  z-index: -2;
+  background: url("../img/zf_phoneBg.jpg") no-repeat;
+  background-size: cover;
+
+  .header {
+    position: absolute;
+    top: .5rem;
+    left: 50%;
+    margin-left: -1.31rem;
+    width: 2.62rem;
+    height: 1.25rem;
+    background: url("../img/zf_phoneLogo.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .time {
+    position: absolute;
+    top: 1.85rem;
+    left: 0;
+    width: 100%;
+    line-height: .3rem;
+    text-align: center;
+
+    color: @c-white;
+    font-size: .3rem;
+    letter-spacing: .05rem;
+  }
+
+  .listen {
+    position: absolute;
+    bottom: .3rem;
+    left: 50%;
+    margin-left: -2.6rem;
+    width: 5.2rem;
+    height: 3.6rem;
+    background: url("../img/zf_phoneListen.png") no-repeat;
+    background-size: 100% 100%;
+
+    span {
+      position: absolute;
+      right: -.07rem;
+      bottom: .47rem;
+      width: 1.6rem;
+      height: 1.6rem;
+
+      &.move { /*&在LESS中是连字符,相当于让后面紧跟着一个MOVE样式 span.move*/
+        z-index: -1;
+        border: 0.03rem solid #0F0;
+        border-radius: 50%;
+        .animationFn(@name: phoneListenMove,@timing-function: linear,@iteration-count: infinite);
+      }
+    }
+
+  }
+}
+
+@-webkit-keyframes phoneListenMove {
+  from {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  to {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+
+@keyframes phoneListenMove {
+  from {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  to {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
