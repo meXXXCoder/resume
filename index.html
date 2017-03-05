@@ -42,7 +42,7 @@
     <!--PHONE-->
     <section class="phone">
         <header class="header"></header>
-        <div class="time">00:56</div>
+        <div class="time">00:00</div>
         <div class="listen">
             <span class="move"></span>
             <span class="touch"></span>
@@ -50,6 +50,24 @@
         <div class="detail"><span></span></div>
     </section>
 </main>
+<!--AUDIO-->
+<section style="display: none;">
+    <!--
+      preload:设置预加载方式
+         none:开始加载页面的时候音频文件不加载任何东西，只有播放的时候才开始加载
+         auto:默认值,开始加载页面的时候就开始下载了
+         metadata:开始加载页面的时候只加载音频的头部信息(音频总时长\专辑...)
+
+     controls:是否用浏览器自带的不放组件,默认都是没有的
+
+     loop:播放完成后循环播放
+
+     autoplay:是否自动播放（真实项目中不用,有很多手机设置它也不能自动播放,可能因为是开始加载资源过多,导致音频文件资源堵塞），我们的自动播放都放在JS中完成
+    -->
+    <audio src="audio/bell.mp3" id="phoneBell" preload="none" loop></audio>
+    <audio src="audio/say.mp3" id="phoneSay" preload="none"></audio>
+    <audio src="audio/music.mp3" id="messageMusic" preload="none" loop></audio>
+</section>
 
 <!--IMPORT JS-->
 <script src="js/zepto.min.js"></script>

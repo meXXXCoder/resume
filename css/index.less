@@ -118,6 +118,7 @@ html, body {
 /*--PHONE--*/
 .phone {
   .fullPage;
+  .transitionFn(@duration: .3s);
   display: none;
   position: relative;
   z-index: -2;
@@ -136,6 +137,7 @@ html, body {
   }
 
   .time {
+    display: none;
     position: absolute;
     top: 1.85rem;
     left: 0;
@@ -172,7 +174,31 @@ html, body {
         .animationFn(@name: phoneListenMove,@timing-function: linear,@iteration-count: infinite);
       }
     }
+  }
 
+  .detail {
+    position: absolute;
+    bottom: .3rem;
+    left: 50%;
+    margin-left: -2.6rem;
+    width: 5.2rem;
+    height: 6.59rem;
+    background: url("../img/zf_phoneDetail.png") no-repeat;
+    background-size: 100% 100%;
+
+    -webkit-transform: translateY(6.89rem);
+    transform: translateY(6.89rem);
+
+    .transitionFn(@duration: .5s);
+
+    span {
+      position: absolute;
+      bottom: .28rem;
+      left: 50%;
+      margin-left: -.8rem;
+      width: 1.6rem;
+      height: 1.6rem;
+    }
   }
 }
 

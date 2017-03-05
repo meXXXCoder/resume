@@ -24,8 +24,8 @@ var loadingRender = (function () {
                     $progressSpan.css('width', n * 100 + '%');
                     //->当所有的图片都加载完成后,我们让LOADING层消失(设置一个1S的延迟,防止网速过快,LOADING层看不见或者层闪烁问题)
                     if (curNum === total) {
-                        $('.phone').css('display', 'block');
                         window.setTimeout(function () {
+                            phoneRender.init();//->LOADING结束,PHONE开始
                             $loading.css('opacity', 0).on('webkitTransitionEnd', function () {
                                 $(this).remove();
                             });
@@ -36,6 +36,82 @@ var loadingRender = (function () {
         }
     }
 })();
-loadingRender.init();
 
+/*--PHONE--*/
+var phoneRender = (function () {
+    var $phone = $('.phone'),
+        $time = $phone.find('.time'),
+        $listen = $phone.find('.listen'),
+        $listenTouch = $listen.find('.touch'),
+        $detail = $phone.find('.detail'),
+        $detailTouch = $detail.find('span');
+
+    var phoneBell = $('#phoneBell')[0],
+        phoneSay = $('#phoneSay')[0];//->把JQ对象转换为原生JS对象,因为AUDIO中的很多属性和方法都是原生的,我们需要使用原生对象调取
+
+    //->LISTEN区域绑定点击事件
+    function listenTouchFn() {
+        $listen.remove();
+        $detail.css('transform', 'translateY(0)');//->换成原生JS的写法：$detail[0].style.webkitTransform='translateY(0)'
+
+        phoneBell.pause();
+        $(phoneBell).remove();
+
+        phoneSay.play();
+        phoneSay.oncanplay = bindTime;//->canplay:当前音频可以播放了的事件
+    }
+
+    //->计时
+    function bindTime() {
+        $time.css('display', 'block');
+        var duration = phoneSay.duration;
+
+        var timer = window.setInterval(function () {
+            var curTime = phoneSay.currentTime,
+                minute = Math.floor(curTime / 60),
+                second = Math.floor(curTime - minute * 60);
+            minute = minute < 10 ? '0' + minute : minute;
+            second = second < 10 ? '0' + second : second;
+            $time.html(minute + ':' + second);
+
+            //->结束
+            if (curTime >= duration) {
+                //->关闭PHONE,展开MESSAGE
+                closePhone();
+                window.clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    //->关闭PHONE,展开MESSAGE
+    function closePhone() {
+        phoneSay.pause();
+        $(phoneSay).remove();
+
+        $phone.css('transform', 'translateY(' + document.documentElement.clientHeight + 'px)').on('webkitTransitionEnd', function () {
+            //->PHONE消失
+            $(this).remove();
+
+            //->MESSAGE展示
+        });
+    }
+
+    return {
+        init: function () {
+            $phone.css('display', 'block');
+
+            //->BELL音频播放
+            phoneBell.play();
+
+            //->LISTEN区域绑定点击事件:移动端不使用CLICK事件,因为CLICK事件有300MS延迟(点击到触发有300MS的间隔)，我们使用ZP中提供的专用方法TAP(JQ中没有)
+            $listenTouch.tap(listenTouchFn);
+
+            //->DETAIL TOUCH点击事件
+            $detailTouch.tap(closePhone);
+        }
+    }
+})();
+
+
+loadingRender.init();
 
