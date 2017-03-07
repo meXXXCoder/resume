@@ -113,5 +113,5 @@ var phoneRender = (function () {
 })();
 
 
-loadingRender.init();
+//loadingRender.init();
 
