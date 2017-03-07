@@ -93,6 +93,7 @@ var phoneRender = (function () {
             $(this).remove();
 
             //->MESSAGE展示
+            messageRender.init();
         });
     }
 
@@ -112,6 +113,116 @@ var phoneRender = (function () {
     }
 })();
 
+/*--MESSAGE--*/
+var messageRender = (function () {
+    var $message = $('.message'),
+        $messageItem = $message.find('.list'),
+        $messageList = $messageItem.find('li'),
+        $messageKeyBoard = $message.find('.keyBoard'),
+        $messageText = $messageKeyBoard.find('.text'),
+        $messageSubmit = $messageKeyBoard.find('.submit'),
+        messageMusic = $('#messageMusic')[0];
 
-//loadingRender.init();
+    var step = -1,
+        autoTimer = null,
+        isTrigger = false,
+        historyH = 0;
+
+    //->消息列表的运动
+    function autoMessage() {
+        tempFn();
+        autoTimer = window.setInterval(tempFn, 1500);
+    }
+
+    function tempFn() {
+        //->$messageList[step]:JS对象
+        //->$messageList.get(step):JS对象
+        //->$messageList.eq(step):JQ对象
+        var $cur = $messageList.eq(++step);
+        $cur.css({
+            opacity: 1,
+            transform: 'translateY(0)'
+        });
+
+        //->move three
+        if (step === 2) {
+            $cur.on('webkitTransitionEnd', function () {
+                /*我们当前的样式属性两个:opacity、transform发生了改变,所以webkitTransitionEnd事件触发两次，会把某一些逻辑触发两次，所以我们需要加次数的判断：记录触发标识即可*/
+                if (isTrigger) return;
+                isTrigger = true;
+
+                //->显示键盘:完成后执行文字打印机
+                $messageKeyBoard
+                    .css('transform', 'translateY(0)')
+                    .on('webkitTransitionEnd', textPrint);
+            });
+            window.clearInterval(autoTimer);
+            return;
+        }
+
+        //->move four
+        if (step >= 3) {
+            historyH += -$cur.height();
+            $messageItem.css('transform', 'translateY(' + historyH + 'px)');
+        }
+
+        //->move end
+        if (step === $messageList.length - 1) {
+            messageMusic.pause();
+            $(messageMusic).remove();
+            window.clearInterval(autoTimer);
+
+            //->展示魔方区域了(延迟)
+            window.setTimeout(function () {
+                $message.remove();
+
+
+            }, 1500);
+        }
+    }
+
+
+    //->文字打印机
+    function textPrint() {
+        var text = '感觉自己啥也不会啊?',
+            n = -1,
+            textTimer = null;
+        textTimer = window.setInterval(function () {
+            $messageText.html($messageText.html() + text[++n]);
+            if (n >= text.length - 1) {
+                window.clearInterval(textTimer);
+                $messageText.html(text);
+
+                //->开启提交按钮的操作
+                $messageSubmit
+                    .css('display', 'block')
+                    .tap(bindSubmit);
+            }
+        }, 100);
+    }
+
+    //->按钮的点击事件
+    function bindSubmit() {
+        $messageText.html('');
+        $messageKeyBoard
+            .off('webkitTransitionEnd', textPrint)
+            .css('transform', 'translateY(3.7rem)');
+        autoMessage();
+    }
+
+    return {
+        init: function () {
+            $message.css('display', 'block');
+
+            //->音乐
+            messageMusic.play();
+
+            //->消息列表的运动
+            autoMessage(true);
+        }
+    }
+})();
+
+
+loadingRender.init();
 
