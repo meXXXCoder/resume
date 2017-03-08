@@ -65,6 +65,43 @@ LESS / SASS ...
 
  3)个正方体盒子中的每一个面移动端具体的位置即可,最后组成一个3D的立体盒子
 
+==================================================
+PC端的事件：
+click(点击)、dblclick(双击)、mouseover(mouseenter)、mouseout(mouseleave)、mousemove、mousedown、mouseup、mousewheel(鼠标滚轮滚动事件)、keydown、keypress、keyup、load、resize、error、unload、beforeunload、blur、focus、change、select、scroll、canplay、readstatechange、timeout、abort... DOMContentLoaded
+
+window.onload(页面打开,并且资源文件加载完成)
+window.onerror(页面打开,但是资源文件加载失败)
+window.onunload(页面关闭)
+window.onbeforeunload(页面关闭之前)
+
+移动端的事件：
+click(单击->300MS验证时间:从第一次点击结束后开始计时,在300MS内如果没有触发第二次点击，则为单击，触发则为双击或者多击) =>移动端click事件的300MS延迟
+mouse系列的在移动端基本上支持,但是我们没有相关的媒介触发,所以我们也不用
+key系列的在移动端不支持,因为移动端的键盘大部分都是虚拟键盘,我们统一使用 input 事件来代替传统键盘事件
+剩下的PC事件,移动端基本上也都支持的
+
+移动端专属的事件:
+  touch事件模型(单手指操作)：touchstart、touchmove、touchend、touchcancel
+  gesture事件模型(多手指操作)：gesturestart、gesturechange、gestureend、gesturecancel
+  手机内部硬件感应事件：GPS、陀螺仪(重力感应器)...
+
+--------------------------------------------------
+面试题：
+window.onload和JQ中的document.ready的区别?  或者  document.onload和document.ready的区别?
+
+//->JQ：当前页面的HTML结构加载完成就会触发执行，可以在同一个页面中使用多次
+$(document).ready(function(){});
+$(function(){});->上面的简写,没有任何的区别
+原理：JQ就是利用原生JS的DOM2级事件绑定，采用的是DOMContentLoaded事件(事件本身就是DOM结构加载完成就会触发执行的)，在IE低版本中，监听的是onreadystate事件，在readyState==='complete' 时候证明DOM结构加载完成
+
+//->JS：当前页面所有资源文件(HTML结构、文字、图片等)都加载完成才会触发执行
+//本次采用的是DOM0事件,在同一个页面中只能出现一次(出现多次,后面的会把前面的覆盖掉)
+window.onload=function(){}
+//本次采用的是DOM2事件,在同一个页面中可以出现多次
+window.addEventListener('load',function(){},false);
+----------------------------------------------------
+
+
 
 
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>珠峰培训</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script>
+    var oBox = document.querySelector('.box');
+    //    oBox.onclick = function () {
+    //        this.style.backgroundColor = 'orange';
+    //    }
+
+    //oBox.addEventListener('touchstart') ->OK
+
+    oBox.ontouchstart = function (e) {
+        //console.log(e);//->手指事件对象
+        //touches/changedTouches/targetTouches =>TouchList手指信息集合
+        //touches和changedTouches平时的时候记录的信息都是一模一样的,touches必须保证手指在屏幕上才可以获取到,所以在touchend事件中我们无法获取,而changedTouches在手指离开屏幕的时候依然会记录最后一个位置的信息 =>平时用changedTouches比较的多
+        var point = e.changedTouches[0];//->获取第一根手指的操作信息
+        this.strX = point.pageX;
+        this.strY = point.pageY;
+        this.isMove = false;
+    };
+
+    oBox.ontouchmove = function (e) {
+        var point = e.changedTouches[0];
+        this.changeX = point.pageX - this.strX;
+        this.changeY = point.pageY - this.strY;
+
+        //->为了防止误操作,我们给予一定的误差值(10/30)
+        if (Math.abs(this.changeX) > 10 || Math.abs(this.changeY) > 10) {
+            this.isMove = true;
+        }
+    };
+
+    oBox.ontouchend = function (e) {
+        if (!this.isMove) {
+            //->点击
+            this.style.backgroundColor = 'orange';
+        } else {
+            //->滑动
+            this.style.backgroundColor = 'red';
+        }
+    };
+</script>
+</body>
+</html>
