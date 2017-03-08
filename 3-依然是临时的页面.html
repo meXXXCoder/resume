@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>珠峰培训</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+
+<script src="fastclick.min.js"></script>
+<script>
+    FastClick.attach(document.body);//->把BODY区域中所有的CLICK事件的300MS延迟就解决掉，原理：采用的是事件委托,核心采用的是TOUCH事件,我们把TOUCH事件都绑定给BODY,这样BODY区域中的子孙元素的相关touch行为触发,都会传播到BODY上,通过事件源处理具体的操作...
+
+    var oBox = document.querySelector('.box');
+    oBox.onclick = function () {
+        this.style.backgroundColor = 'orange';
+    }
+</script>
+</body>
+</html>

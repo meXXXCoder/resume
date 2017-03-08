@@ -175,8 +175,7 @@ var messageRender = (function () {
             //->展示魔方区域了(延迟)
             window.setTimeout(function () {
                 $message.remove();
-
-
+                cubeRender.init();
             }, 1500);
         }
     }
@@ -223,6 +222,79 @@ var messageRender = (function () {
     }
 })();
 
+/*--CUBE--*/
+/*如果在移动端实现滑动的操作,我们需要阻止IMG和DOCUMENT的默认行为：IMG默认行为是滑动的时候会拖拽图片产生的虚拟图,不是操作当前的元素；DOCUMENT的默认行为是移动端浏览器的所有滑动大部分都是浏览器页卡的切换,我们需要阻止这件事情*/
+$(document).add($('img')).on('touchmove', function (e) {
+    e.preventDefault();
+});
+var cubeRender = (function () {
+    var $cube = $('.cube'),
+        $cubeBox = $cube.find('.cubeBox'),
+        $cubeList = $cubeBox.find('li');
 
-//loadingRender.init();
+    function startFn(e) {
+        var point = e.changedTouches[0];
+        $(this).attr({
+            strX: point.pageX,
+            strY: point.pageY,
+            changeX: 0,
+            changeY: 0,
+            isMove: false
+        });//->使用JQ或者ZP存储的自定义属性值都是字符串,即使你写的不是,它也会当做字符串去存储,以后通过ATTR方法获取的结果是字符串
+    }
+
+    function moveFn(e) {
+        var point = e.changedTouches[0];
+        var changeX = point.pageX - parseFloat($(this).attr('strX')),
+            changeY = point.pageY - parseFloat($(this).attr('strY'));
+        $(this).attr({
+            changeX: changeX,
+            changeY: changeY,
+            isMove: (Math.abs(changeX) > 10 || Math.abs(changeY) > 10)
+        });
+    }
+
+    function endFn(e) {
+        var isMove = $(this).attr('isMove');
+        if (isMove === 'false') return;
+
+        var changeX = parseFloat($(this).attr('changeX')),
+            changeY = parseFloat($(this).attr('changeY'));
+        var rotateX = parseFloat($(this).attr('rotateX')),
+            rotateY = parseFloat($(this).attr('rotateY'));
+        rotateY = rotateY + changeX / 3;
+        rotateX = rotateX - changeY / 3;
+        $(this).css('transform', 'scale(0.6) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)').attr({
+            rotateX: rotateX,
+            rotateY: rotateY,//->随时更新自定义属性,保证下一次滑动是基于上一次的角度基础上继续旋转的
+            strX: null,
+            strY: null,
+            changeX: null,
+            changeY: null,
+            isMove: null//->最好在每一次结束后,把所有自定义的属性都初始化一下,下一次操作所有的属性值从新开始
+        });
+    }
+
+    return {
+        init: function () {
+            $cube.css('display', 'block');
+
+            //->存储当前的旋转角度,下一次基于这个角度再次旋转
+            $cubeBox.attr({
+                rotateX: 35,
+                rotateY: 45
+            }).on('touchstart', startFn)
+                .on('touchmove', moveFn)
+                .on('touchend', endFn);
+
+            //->给每一个页面绑定点击事件,点击的时候进入指定的详情页
+            $cubeList.tap(function () {
+
+            });
+        }
+    }
+})();
+
+
+loadingRender.init();
 
