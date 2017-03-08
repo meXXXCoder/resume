@@ -224,5 +224,5 @@ var messageRender = (function () {
 })();
 
 
-loadingRender.init();
+//loadingRender.init();
 

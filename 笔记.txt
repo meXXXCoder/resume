@@ -40,6 +40,44 @@ LESS / SASS ...
   [产品开发]
 
 
+====================================================
+1、CSS3中的3D变形  =>transform
+
+ 1)给当前需要3D变形的元素所在区域(舞台)设置景深：人眼距离舞台的距离，不设置的话默认是紧挨着舞台，这样什么都看不见了(一叶障目)
+
+   .cube{
+      perspective: 2000px; //->2000的意思是人眼距离屏幕的距离是2000PX，我们一般设定的值1000/1500/2000...
+   }
+
+ 2)给当前元素设置3D变形属性
+   .cubeBox{
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+   }
+
+   我们有些时候也要很据效果需求，给当前元素设置变形的基准点，默认：
+   .cubeBox{
+      -webkit-transform-origin: center center 0;
+      transform-origin: center center 0;
+
+      => X / Y / Z 轴中间
+   }
+
+ 3)个正方体盒子中的每一个面移动端具体的位置即可,最后组成一个3D的立体盒子
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

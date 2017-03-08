@@ -224,7 +224,7 @@ html, body {
   }
 }
 
-/*MESSAGE*/
+/*--MESSAGE--*/
 .message {
   .fullPage;
   display: none;
@@ -333,14 +333,98 @@ html, body {
   }
 }
 
+/*--CUBE--*/
+.cube {
+  .fullPage;
+  display: none;
+  position: relative;
+  background: url("../img/zf_cubeBg.jpg") no-repeat;
+  background-size: cover;
+
+  /*3D->景深*/
+  perspective: 2000px;
+
+  .tip {
+    position: absolute;
+    bottom: .5rem;
+    left: 50%;
+    margin-left: -1.97rem;
+    width: 3.94rem;
+    height: .44rem;
+    background: url("../img/zf_cubeTip.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .cubeBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -2.55rem 0 0 -2.55rem;
+    width: 5.1rem;
+    height: 5.1rem;
+
+    /*3D->3D变形*/
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    /*3D->为了在开始的时候能看到这个盒子,我们给盒子初始旋转一定的角度:先缩小在旋转,否则容易发生盒子扭曲*/
+    -webkit-transform: scale(0.6) rotateX(35deg) rotateY(45deg);
+    transform: scale(0.6) rotateX(35deg) rotateY(45deg);
+
+    li {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      /*3D->移动具体的某一面*/
+      &:nth-child(1) {
+        -webkit-transform: translateZ(2.55rem);
+        transform: translateZ(2.55rem);
+      }
+
+      &:nth-child(2) {
+        -webkit-transform: translateZ(-2.55rem) rotateY(180deg);
+        transform: translateZ(-2.55rem) rotateY(180deg);
+      }
+
+      &:nth-child(3) {
+        -webkit-transform: translateX(-2.55rem) rotateY(-90deg);
+        transform: translateX(-2.55rem) rotateY(-90deg);
+      }
+
+      &:nth-child(4) {
+        -webkit-transform: translateX(2.55rem) rotateY(90deg);
+        transform: translateX(2.55rem) rotateY(90deg);
+      }
+
+      &:nth-child(5) {
+        -webkit-transform: translateY(-2.55rem) rotateX(90deg);
+        transform: translateY(-2.55rem) rotateX(90deg);
+      }
+
+      &:nth-child(6) {
+        -webkit-transform: translateY(2.55rem) rotateX(-90deg);
+        transform: translateY(2.55rem) rotateX(-90deg);
+      }
+    }
+  }
+}
+
 /*仅仅为了写样式的时候调试*/
-/*.loading, .phone, .message {
+.loading, .phone, .message {
   display: none;
 }
 
-.message {
+.cube {
   display: block;
-}*/
+}
 
 
 
