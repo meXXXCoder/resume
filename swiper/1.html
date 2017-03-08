@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>珠峰培训</title>
+    <link rel="stylesheet" href="css/reset.min.css"/>
+    <link rel="stylesheet" href="css/swiper.min.css"/>
+
+    <style>
+        .swiper-container, .swiper-slide {
+            height: 150px;
+        }
+
+        .swiper-slide {
+            line-height: 150px;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .bg1 {
+            background: red;
+        }
+
+        .bg2 {
+            background: orange;
+        }
+
+        .bg3 {
+            background: yellow;
+        }
+
+        .bg4 {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<!--swiper-container:当前滑动区域的这个容器-->
+<div class="swiper-container">
+    <!--swiper-wrapper:放入需要滑动的这个几个页面或者图片-->
+    <div class="swiper-wrapper">
+        <!--swiper-slide:每一个滑动块-->
+        <div class="swiper-slide bg1">1</div>
+        <div class="swiper-slide bg2">2</div>
+        <div class="swiper-slide bg3">3</div>
+        <div class="swiper-slide bg4">4</div>
+    </div>
+
+    <!--分页器:轮播图焦点-->
+    <div class="swiper-pagination"></div>
+</div>
+
+<script src="js/swiper.min.js"></script>
+<script>
+    new Swiper('.swiper-container', {
+        loop: true,
+        direction: 'horizontal',//->vertical
+        effect: 'slide',
+        pagination: '.swiper-pagination'
+        /*paginationType: 'progress'*/
+        /*autoplay: 1000,
+         autoplayDisableOnInteraction: false*/
+    });
+</script>
+</body>
+</html>

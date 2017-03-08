@@ -420,14 +420,61 @@ html, body {
   }
 }
 
+/*--SWIPER--*/
+.swiper-container {
+  .fullPage;
+  display: none;
+  position: relative;
+
+  .return {
+    position: absolute;
+    top: .2rem;
+    right: .2rem;
+    z-index: 999;
+    width: .64rem;
+    height: .75rem;
+    background: url("../img/zf_return.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .swiper-slide {
+    .fullPage;
+    position: relative;
+
+    &.page1 {
+      background: transparent;
+    }
+
+    &.page2 {
+      background: #FFF9C1;
+    }
+
+    &.page3 {
+      background: #E45454;
+    }
+
+    &.page4 {
+      background: #FAC471;
+    }
+
+    &.page5 {
+      background: #FBFFE8;
+    }
+
+    &.page6 {
+      background: #5975FF;
+    }
+  }
+}
+
 /*仅仅为了写样式的时候调试*/
-/*.loading, .phone, .message {
+.loading, .phone, .message, .cube {
   display: none;
 }
 
-.cube {
+.swiper-container {
   display: block;
-}*/
+}
 
 
 

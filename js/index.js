@@ -289,12 +289,42 @@ var cubeRender = (function () {
 
             //->给每一个页面绑定点击事件,点击的时候进入指定的详情页
             $cubeList.tap(function () {
+                $cube.css('display', 'none');
+                swiperRender.init($(this).index());
+            });
+        }
+    }
+})();
 
+/*--SWIPER--*/
+var swiperRender = (function () {
+    var $swiperContainer = $('.swiper-container'),
+        $return = $swiperContainer.find('.return');
+
+    var swipeExample = null;
+
+    return {
+        init: function (index) {
+            index = index || 0;
+            $swiperContainer.css('display', 'block');
+
+            //->实现六个页面之间的切换
+            swipeExample = new Swiper('.swiper-container', {
+                effect: 'coverflow'
+            });
+            swipeExample.slideTo(index, 0);//->直接滚动到具体的某一个切换卡区域,第一个参数是索引,第二个参数是运动时间,写零是立即切换到这个区域
+
+            //->返回按钮的操作
+            $return.tap(function () {
+                $swiperContainer.css('display', 'none');
+                $('.cube').css('display', 'block');
             });
         }
     }
 })();
 
 
-loadingRender.init();
+cubeRender.init();
+
+//loadingRender.init();
 
