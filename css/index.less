@@ -440,9 +440,68 @@ html, body {
   .swiper-slide {
     .fullPage;
     position: relative;
+    font-family: Microsoft JhengHei;
 
     &.page1 {
       background: transparent;
+      perspective: 2000px;
+
+      dl {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -3.6rem 0 0 -2.7rem;
+        width: 5.4rem;
+        height: 7.2rem;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+
+        dt {
+          line-height: .6rem;
+          text-align: center;
+          font-size: .4rem;
+          color: yellow;
+          background: @c-bgGreen;
+        }
+
+        dd {
+          position: relative;
+          box-sizing: border-box;
+          height: .6rem;
+          line-height: .6rem;
+          background: @c-bgGreen;
+          border-top: .02rem dashed rgba(255, 255, 255, 0.3);
+
+          em {
+            position: absolute;
+            left: .15rem;
+            top: 50%;
+            z-index: 998;
+            margin-top: -.21rem;
+            width: .36rem;
+            height: .42rem;
+            line-height: .42rem;
+            text-align: center;
+            color: @c-white;
+            font-size: .2rem;
+            font-style: normal;
+            background: url("../img/zf_outline.png") no-repeat;
+            background-size: 100% 100%;
+          }
+
+          a {
+            display: block;
+            position: relative;
+            z-index: 998;
+            margin-left: .64rem;
+            color: #000;
+            font-size: .28rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        }
+      }
     }
 
     &.page2 {
@@ -472,9 +531,9 @@ html, body {
   display: none;
 }
 
-.swiper-container {
+/*.swiper-container {
   display: block;
-}
+}*/
 
 
 

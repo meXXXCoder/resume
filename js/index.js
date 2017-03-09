@@ -301,7 +301,32 @@ var swiperRender = (function () {
     var $swiperContainer = $('.swiper-container'),
         $return = $swiperContainer.find('.return');
 
-    var swipeExample = null;
+    var swipeExample = null,
+        $course = $('.course');
+
+    function moveFn(example) {
+        //->example:回调函数中传递的参数值,代表当前SWIPER的实例
+        var slideAry = example.slides,//->获取所有的滑动块
+            index = example.activeIndex;//->获取当前活动块的索引
+
+        /*--基于makisu插件实现3D折叠效果--*/
+        if (index === 0) {
+            $course.makisu({
+                selector: 'dd',
+                overlap: 0.6,
+                speed: 0.8
+            });
+            $course.makisu('open');
+        } else {
+            $course.makisu({
+                selector: 'dd',
+                overlap: 0.6,
+                speed: 0
+            });
+            $course.makisu('close');
+        }
+
+    }
 
     return {
         init: function (index) {
@@ -310,7 +335,9 @@ var swiperRender = (function () {
 
             //->实现六个页面之间的切换
             swipeExample = new Swiper('.swiper-container', {
-                effect: 'coverflow'
+                effect: 'coverflow',
+                onInit: moveFn,//->当SWIPER初始化完成:实现了切换功能,也定位到具体的某一个页面了,这样就是初始化成功
+                onSlideChangeEnd: moveFn//->当每一个SLIDE切换结束的时候
             });
             swipeExample.slideTo(index, 0);//->直接滚动到具体的某一个切换卡区域,第一个参数是索引,第二个参数是运动时间,写零是立即切换到这个区域
 
