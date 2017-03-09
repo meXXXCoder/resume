@@ -326,6 +326,17 @@ var swiperRender = (function () {
             $course.makisu('close');
         }
 
+        /*--
+         滑动到具体区域,让子元素实现动画
+         ->在CSS中给每一个区域子元素的动画都写在 #page? 下，例如：第二个页面所有的动画都写在 #page2 下
+         开始给所有需要运动的元素透明度设置为0 .page?
+         当动画结束的时候让透明度变为1 @keyframes
+
+         ->在每一次JS切换完成后，我们给当前的这个活动块加一个ID #page?，例如：索引为1的时候,我们给当前的互动块加入的ID是 #page2
+         --*/
+        $.each(slideAry, function (n, item) {
+            item.id = index === n ? 'page' + (index + 1) : null;
+        });
     }
 
     return {
@@ -350,8 +361,5 @@ var swiperRender = (function () {
     }
 })();
 
-
-cubeRender.init();
-
-//loadingRender.init();
+loadingRender.init();
 

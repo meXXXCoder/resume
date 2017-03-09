@@ -119,6 +119,106 @@ window.addEventListener('load',function(){},false);
 ----------------------------------------------------
 
 
+==========================================================
+项目总结：
+ HTML5
+   header、section、main...
+   audio
+     play()
+     pause()
+     loop
+     preload
+     currentTime
+     duration
+     oncanplay=function...
+     ...
+
+ CSS3
+   transition
+   animation
+   transform:scale、rotate、translate...
+   transform-style:preserve-3d;
+   background-size
+   box-sizing
+   border-radius
+   background:linear-gradient
+   ...
+
+ LESS
+   变量
+   函数
+   层级嵌套
+      .box{
+         .temp{} -> .box .temp
+
+         &.temp{} -> .box.temp
+      }
+   作用域和作用域链
+   darken
+   lighten
+   ...
+
+   如何解析LESS
+      [上线]
+      npm init -y  ->package.json
+      npm install less --save-dev
+      package.json的scripts配置脚本："less":"lessc xxx/xxx.less xxx/xxx.min.css -x"
+      npm run less
+
+      [开发]
+      <link rel='stylesheet/less' href='xxx/xxx.less'/>
+      <script src='js/less.min.js'><script/>
+
+ 响应式布局
+   REM
+     html{font-size:100px}
+     按照设计稿640的尺寸严格来布局,只是把所有量出来的PX换算成REM(除以100)
+     <script>
+        if(当前屏幕的宽度<640){
+           让当前屏幕的宽度/640*100，计算出最新的字体大小，重新的给HTML赋值，此时之前所有以REM为单位的值都会跟着整体缩小或者放大
+        }
+        大于等于640的时候，让整个页面MAIN区域最大640，最大尺寸也是设计稿的尺寸即可，不需要在调整REM换算比例了
+     </script>
+
+   因为我们的项目是必须保证每一个区域都是一屏幕(不能超也不能少的)，所以每一个区域中的元素基本上都是定位来设定样式的
+
+ TOUCH事件
+   click在PC和移动端的区别
+   如何自己使用TOUCH模拟出点击事件
+   以及使用TOUCH能够实现滑动的效果处理(魔方旋转)
+   fastclick.js
+   zepto.js => 对比和JQ的区别
+   ...
+
+ Swiper应用
+ Makisu应用
+
+ 业务逻辑JS
+   如何使用单例模式实现模块化开发
+   模块之间如何相互设计调用
+
+   如何在JS中操控CSS3动画
+     webkitTransitionEnd事件
+     ...
+
+   ZP或者JQ的常规应用
+   项目需求点实现的思想
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

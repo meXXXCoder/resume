@@ -7,6 +7,7 @@
 */
 @import "reset";
 @import "swiper";
+@import "animate";
 @import (reference) "public";
 
 html {
@@ -506,6 +507,46 @@ html, body {
 
     &.page2 {
       background: #FFF9C1;
+
+      h2 {
+        position: absolute;
+        top: .8rem;
+        left: 0;
+        width: 100%;
+        line-height: .9rem;
+        text-align: center;
+        color: #665C50;
+        font-size: .6rem;
+        font-weight: normal;
+        opacity: 0;
+      }
+
+      .imgBox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -2.4rem 0 0 -2.56rem;
+        width: 5.12rem;
+        height: 5.8rem;
+
+        img {
+          .transitionFn(@duration: .3s);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -.5rem 0 0 -.5rem;
+          width: 1rem;
+          height: 1rem;
+          opacity: 0;
+
+          &:nth-child(1) {
+            margin: -.85rem 0 0 -.66rem;
+            width: 1.32rem;
+            height: 1.7rem;
+            opacity: 0;
+          }
+        }
+      }
     }
 
     &.page3 {
@@ -526,15 +567,52 @@ html, body {
   }
 }
 
-/*仅仅为了写样式的时候调试*/
-.loading, .phone, .message, .cube {
-  display: none;
+/*--PAGE2下的动画--*/
+#page2 {
+  h2 {
+    .animationFn(@name: bounceInLeft);
+  }
+
+  img {
+    &:nth-child(1) {
+      .animationFn(@name: shake);
+    }
+
+    &:not(:nth-child(1)) {
+      opacity: 1;
+      .animationFn(@name: tada,@delay: .3s,@iteration-count: infinite);
+      /*-webkit-animation: a 1s infinite both, b .5s; 多个CSS3动画中间使用逗号隔开*/
+    }
+
+    &:nth-child(2) {
+      margin-top: -2.9rem;
+    }
+
+    &:nth-child(3) {
+      margin-top: -1.7rem;
+      margin-left: 1.5rem;
+    }
+
+    &:nth-child(4) {
+      margin-top: .7rem;
+      margin-left: 1.5rem;
+    }
+
+    &:nth-child(5) {
+      margin-top: 1.9rem;
+    }
+
+    &:nth-child(6) {
+      margin-top: .7rem;
+      margin-left: -2.5rem;
+    }
+
+    &:nth-child(7) {
+      margin-top: -1.7rem;
+      margin-left: -2.5rem;
+    }
+  }
 }
-
-/*.swiper-container {
-  display: block;
-}*/
-
 
 
 
