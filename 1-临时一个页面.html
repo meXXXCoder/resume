@@ -38,24 +38,24 @@
 </ul>
 <script src="jquery.min.js"></script>
 <script>
-    //    $('#box').find('li').each(function (index, item) {
-    //        if (index !== 9) {
-    //            $(item).attr('data-bg', $(item).css('backgroundColor'));
-    //
-    //            $(item).on('mouseover', function () {
-    //                $(this).css('background', 'green');
-    //            }).on('mouseout', function () {
-    //                $(this).css('background', $(this).attr('data-bg'));
-    //            });
-    //        }
-    //    });
+        $('#box').find('li').each(function (index, item) {
+            if (index !== 9) {
+                $(item).attr('data-bg', $(item).css('backgroundColor'));
 
-    //    $('#box>li:not(:last)').on('mouseover', function () {
-    //        $(this).css('background', 'green');
-    //    }).on('mouseout', function () {
-    //        var bg = $(this).index() % 2 !== 0 ? 'orange' : 'pink';
-    //        $(this).css('background', bg);
-    //    });
+                $(item).on('mouseover', function () {
+                    $(this).css('background', 'green');
+                }).on('mouseout', function () {
+                    $(this).css('background', $(this).attr('data-bg'));
+                });
+            }
+        });
+
+        $('#box>li:not(:last)').on('mouseover', function () {
+            $(this).css('background', 'green');
+        }).on('mouseout', function () {
+            var bg = $(this).index() % 2 !== 0 ? 'orange' : 'pink';
+            $(this).css('background', bg);
+        });
 </script>
 </body>
 </html>

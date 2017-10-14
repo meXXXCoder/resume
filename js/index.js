@@ -183,7 +183,7 @@ var messageRender = (function () {
 
     //->文字打印机
     function textPrint() {
-        var text = '感觉自己啥也不会啊?',
+        var text = '请点击虚拟键盘上面的发送按钮',
             n = -1,
             textTimer = null;
         textTimer = window.setInterval(function () {

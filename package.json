@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "less": "lessc css/index.less css/build.min.css -x"
+    "less": "lessc css/index.less css/build.css"
   },
   "keywords": [],
   "author": "",
